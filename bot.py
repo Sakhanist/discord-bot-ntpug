@@ -13,7 +13,7 @@ import requests
 
 
 SCRIPT_NAME = "NT Pug Bot"
-SCRIPT_VERSION = "0.6.1"
+SCRIPT_VERSION = "0.6.2"
 SCRIPT_URL = "https://github.com/Rainyan/discord-bot-ntpug"
 
 CFG_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)),
@@ -184,7 +184,8 @@ class PugStatus():
                 for role in self.guild_roles:
                     if role.name == pugger_role:
                         min_nag_hrs = f"{hours_threshold:.1f}"
-                        min_nag_hrs = min_nag_hrs.rstrip("0").rstrip(".")
+                        if min_nag_hrs.endswith(".0"):
+                            min_nag_hrs = min_nag_hrs[:-2]
                         msg = (f"{role.mention} Need **"
                                f"{self.num_more_needed()} more puggers** for "
                                "a game!\n_(This is an automatic ping to all "
